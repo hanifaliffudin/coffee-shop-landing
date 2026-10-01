@@ -336,16 +336,16 @@ function App() {
               src="/images/emberline-pairing.jpg"
               srcSet="/images/emberline-pairing-mobile.jpg 768w, /images/emberline-pairing.jpg 1536w"
               sizes="(max-width: 900px) 100vw, 47.5vw"
-              alt="Flat white and almond croissant on cream linen"
+              alt="Coffee cup and flaky croissants on a wooden table"
               width="1536"
-              height="1024"
+              height="1920"
               loading="lazy"
             />
           </picture>
           <div className="pairing__content" data-reveal>
             <p className="section-kicker">A quiet pairing</p>
-            <h2 id="pairing-title">Flat white.<br />Almond croissant.</h2>
-            <p>Round espresso, fine microfoam, and crisp pastry layers. A simple match that leaves room for the coffee.</p>
+            <h2 id="pairing-title">Coffee.<br />Butter croissant.</h2>
+            <p>A balanced cup, crisp pastry layers, and a table that invites you to stay a little longer.</p>
             <a className="text-link" href="#menu">See pastries on the menu</a>
           </div>
         </section>
@@ -391,6 +391,13 @@ function App() {
           <a href="#menu">Menu</a>
           <a href="#notes">Find your cup</a>
         </nav>
+        <p className="site-footer__credit">
+          Photography:
+          {' '}<a href="https://unsplash.com/photos/a-cup-of-coffee-and-coffee-beans-on-a-table-rOscpQUx404" target="_blank" rel="noreferrer">hero</a>
+          {' · '}<a href="https://unsplash.com/photos/a-man-pouring-a-cup-of-coffee-into-a-cup-I1VISukmlhE" target="_blank" rel="noreferrer">brew</a>
+          {' · '}<a href="https://unsplash.com/photos/a-croissant-on-a-plate-next-to-a-cup-of-coffee-vUeOAtrxxsk" target="_blank" rel="noreferrer">pairing</a>
+          {' '}— Unsplash License.
+        </p>
         <p className="site-footer__mark">Small cups, long conversations.</p>
       </footer>
     </div>

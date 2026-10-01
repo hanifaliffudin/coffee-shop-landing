@@ -663,6 +663,24 @@ body {
   text-decoration: none;
 }
 
+.site-footer__credit {
+  color: rgba(244, 234, 219, 0.62);
+  font-size: 0.75rem;
+  grid-column: 1 / -1;
+  margin: 0;
+  max-width: 48rem;
+}
+
+.site-footer__credit a {
+  color: var(--cream);
+  text-decoration-color: rgba(244, 234, 219, 0.42);
+  text-underline-offset: 0.18em;
+}
+
+.site-footer__credit a:hover {
+  color: var(--amber);
+}
+
 .site-footer .site-footer__mark {
   border-top: 1px solid rgba(244, 234, 219, 0.2);
   color: var(--cream);
