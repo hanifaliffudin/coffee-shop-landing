@@ -174,7 +174,7 @@ function App() {
 
       <header className={`site-header${headerScrolled || mobileMenuOpen ? ' is-scrolled' : ''}`}>
         <div className="site-header__inner">
-          <a className="wordmark" href="#top" aria-label="Emberline Coffee home" onClick={closeMobileMenu}>
+          <a className="wordmark" href="#top" onClick={closeMobileMenu}>
             Emberline
             <span>Coffee</span>
           </a>
@@ -211,13 +211,7 @@ function App() {
 
       <main id="main-content">
         <section className="hero" id="top" aria-labelledby="hero-title">
-          <img
-            className="hero__image"
-            src="/images/emberline-hero.jpg"
-            alt="Cappuccino in a handmade ceramic cup on a dark walnut coffee bar"
-            width="1983"
-            height="793"
-          />
+          <div className="hero__media" aria-hidden="true" />
           <div className="hero__shade" />
           <div className="hero__content">
             <p className="hero__kicker">Espresso and slow bar</p>
@@ -237,13 +231,22 @@ function App() {
 
         <section className="story" id="story" aria-labelledby="story-title">
           <div className="story__image-wrap" data-reveal>
-            <img
-              src="/images/emberline-ritual.jpg"
-              alt="Barista pouring water through a ceramic coffee dripper"
-              width="1536"
-              height="1024"
-              loading="lazy"
-            />
+            <picture>
+              <source
+                type="image/avif"
+                srcSet="/images/emberline-ritual-mobile.avif 768w, /images/emberline-ritual.avif 1536w"
+                sizes="(max-width: 900px) 100vw, 52.5vw"
+              />
+              <img
+                src="/images/emberline-ritual.jpg"
+                srcSet="/images/emberline-ritual-mobile.jpg 768w, /images/emberline-ritual.jpg 1536w"
+                sizes="(max-width: 900px) 100vw, 52.5vw"
+                alt="Barista pouring water through a ceramic coffee dripper"
+                width="1536"
+                height="1024"
+                loading="lazy"
+              />
+            </picture>
             <span className="image-caption">A steady pour keeps the cup clear and balanced.</span>
           </div>
           <div className="story__copy" data-reveal>
@@ -323,13 +326,22 @@ function App() {
         </section>
 
         <section className="pairing" aria-labelledby="pairing-title">
-          <img
-            src="/images/emberline-pairing.jpg"
-            alt="Flat white and almond croissant on cream linen"
-            width="1536"
-            height="1024"
-            loading="lazy"
-          />
+          <picture>
+            <source
+              type="image/avif"
+              srcSet="/images/emberline-pairing-mobile.avif 768w, /images/emberline-pairing.avif 1536w"
+              sizes="(max-width: 900px) 100vw, 47.5vw"
+            />
+            <img
+              src="/images/emberline-pairing.jpg"
+              srcSet="/images/emberline-pairing-mobile.jpg 768w, /images/emberline-pairing.jpg 1536w"
+              sizes="(max-width: 900px) 100vw, 47.5vw"
+              alt="Flat white and almond croissant on cream linen"
+              width="1536"
+              height="1024"
+              loading="lazy"
+            />
+          </picture>
           <div className="pairing__content" data-reveal>
             <p className="section-kicker">A quiet pairing</p>
             <h2 id="pairing-title">Flat white.<br />Almond croissant.</h2>
@@ -369,7 +381,7 @@ function App() {
       </main>
 
       <footer className="site-footer">
-        <a className="wordmark" href="#top" aria-label="Return to the top of Emberline Coffee">
+        <a className="wordmark" href="#top">
           Emberline
           <span>Coffee</span>
         </a>

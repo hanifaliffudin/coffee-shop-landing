@@ -1,5 +1,5 @@
 @font-face {
-  font-display: swap;
+  font-display: optional;
   font-family: 'Cormorant Garamond';
   font-style: normal;
   font-weight: 500 600;
@@ -7,7 +7,7 @@
 }
 
 @font-face {
-  font-display: swap;
+  font-display: optional;
   font-family: 'Manrope';
   font-style: normal;
   font-weight: 400 600;
@@ -181,7 +181,7 @@ body {
   position: relative;
 }
 
-.hero__image,
+.hero__media,
 .hero__shade {
   height: 100%;
   inset: 0;
@@ -189,9 +189,17 @@ body {
   width: 100%;
 }
 
-.hero__image {
-  object-fit: cover;
-  object-position: center;
+.hero__media {
+  display: block;
+}
+
+.hero__media::before {
+  background-image: url('/images/emberline-hero.avif');
+  background-position: center;
+  background-size: cover;
+  content: '';
+  inset: 0;
+  position: absolute;
 }
 
 .hero__shade {
@@ -199,7 +207,6 @@ body {
 }
 
 .hero__content {
-  animation: hero-in 760ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
   max-width: 45rem;
   position: relative;
   z-index: 1;
@@ -305,6 +312,12 @@ body {
   min-height: 40rem;
   overflow: hidden;
   position: relative;
+}
+
+.story__image-wrap picture {
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 
 .story__image-wrap img {
@@ -492,7 +505,13 @@ body {
   overflow: hidden;
 }
 
-.pairing > img {
+.pairing > picture {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.pairing > picture img {
   height: 100%;
   object-fit: cover;
   width: 100%;
@@ -672,17 +691,6 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
-@keyframes hero-in {
-  from {
-    opacity: 0;
-    transform: translateY(1.25rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @media (max-width: 900px) {
   .story,
   .pairing,
@@ -708,7 +716,7 @@ button:focus-visible {
     margin-top: 0;
   }
 
-  .pairing > img {
+  .pairing > picture {
     max-height: 38rem;
   }
 
@@ -767,8 +775,9 @@ button:focus-visible {
     padding-top: 7rem;
   }
 
-  .hero__image {
-    object-position: 66% center;
+  .hero__media::before {
+    background-image: url('/images/emberline-hero-mobile-small.avif');
+    background-position: 66% center;
   }
 
   .hero__shade {
@@ -827,7 +836,7 @@ button:focus-visible {
     min-height: 0;
   }
 
-  .pairing > img {
+  .pairing > picture {
     height: 29rem;
   }
 
