@@ -227,10 +227,11 @@ function App() {
                 srcSet="/images/emberline-hero-mobile.avif"
               />
               <source
+                media="(max-width: 1600px)"
                 type="image/avif"
-                srcSet="/images/emberline-hero-medium.avif 1600w, /images/emberline-hero.avif 2400w"
-                sizes="100vw"
+                srcSet="/images/emberline-hero-medium.avif"
               />
+              <source type="image/avif" srcSet="/images/emberline-hero.avif" />
               <img
                 src="/images/emberline-hero.jpg"
                 srcSet="/images/emberline-hero-medium.jpg 1600w, /images/emberline-hero.jpg 2400w"
