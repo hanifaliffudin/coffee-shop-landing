@@ -24,4 +24,6 @@ The locally bundled coffee photography in `public/images` is sourced from Unspla
 - Brewing detail: [A man pouring a cup of coffee into a cup](https://unsplash.com/photos/a-man-pouring-a-cup-of-coffee-into-a-cup-I1VISukmlhE)
 - Pairing: [A croissant on a plate next to a cup of coffee](https://unsplash.com/photos/a-croissant-on-a-plate-next-to-a-cup-of-coffee-vUeOAtrxxsk)
 
+The seasonal feature uses a local crop of the hero source image, so it does not introduce another external asset or credit.
+
 All three images are available under the [Unsplash License](https://unsplash.com/license). The site uses locally optimized JPEG and AVIF derivatives so the deployed page does not depend on remote image URLs.

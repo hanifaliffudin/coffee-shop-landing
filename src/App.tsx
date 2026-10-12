@@ -100,6 +100,7 @@ const brewNotes: BrewNote[] = [
 function App() {
   const [activeCategory, setActiveCategory] = useState<MenuCategory>('espresso')
   const [activeNote, setActiveNote] = useState(0)
+  const [noteDirection, setNoteDirection] = useState<'next' | 'previous'>('next')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [headerScrolled, setHeaderScrolled] = useState(false)
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([])
@@ -151,6 +152,7 @@ function App() {
   const closeMobileMenu = () => setMobileMenuOpen(false)
 
   const changeNote = (direction: number) => {
+    setNoteDirection(direction > 0 ? 'next' : 'previous')
     setActiveNote((current) => (current + direction + brewNotes.length) % brewNotes.length)
   }
 
@@ -186,6 +188,7 @@ function App() {
           >
             <a href="#story" onClick={closeMobileMenu}>Our approach</a>
             <a href="#menu" onClick={closeMobileMenu}>Menu</a>
+            <a href="#seasonal" onClick={closeMobileMenu}>Seasonal</a>
             <a href="#notes" onClick={closeMobileMenu}>Find your cup</a>
           </nav>
 
@@ -211,7 +214,34 @@ function App() {
 
       <main id="main-content">
         <section className="hero" id="top" aria-labelledby="hero-title">
-          <div className="hero__media" aria-hidden="true" />
+          <div className="hero__media" aria-hidden="true">
+            <picture>
+              <source
+                media="(max-width: 720px)"
+                type="image/avif"
+                srcSet="/images/emberline-hero-mobile-small.avif"
+              />
+              <source
+                media="(max-width: 960px)"
+                type="image/avif"
+                srcSet="/images/emberline-hero-mobile.avif"
+              />
+              <source
+                type="image/avif"
+                srcSet="/images/emberline-hero-medium.avif 1600w, /images/emberline-hero.avif 2400w"
+                sizes="100vw"
+              />
+              <img
+                src="/images/emberline-hero.jpg"
+                srcSet="/images/emberline-hero-medium.jpg 1600w, /images/emberline-hero.jpg 2400w"
+                sizes="100vw"
+                alt=""
+                width="2400"
+                height="1350"
+                fetchPriority="high"
+              />
+            </picture>
+          </div>
           <div className="hero__shade" />
           <div className="hero__content">
             <p className="hero__kicker">Espresso and slow bar</p>
@@ -243,7 +273,7 @@ function App() {
                 sizes="(max-width: 900px) 100vw, 52.5vw"
                 alt="Barista pouring water through a ceramic coffee dripper"
                 width="1536"
-                height="1024"
+                height="2304"
                 loading="lazy"
               />
             </picture>
@@ -267,6 +297,43 @@ function App() {
                 <dd>Open aroma and a lighter texture</dd>
               </div>
             </dl>
+          </div>
+        </section>
+
+        <section className="seasonal-feature" id="seasonal" aria-labelledby="seasonal-title">
+          <div className="seasonal-feature__media" data-reveal>
+            <picture>
+              <source
+                type="image/avif"
+                srcSet="/images/emberline-seasonal-mobile.avif 768w, /images/emberline-seasonal.avif 1200w"
+                sizes="(max-width: 900px) 100vw, 44vw"
+              />
+              <img
+                src="/images/emberline-seasonal.jpg"
+                srcSet="/images/emberline-seasonal-mobile.jpg 768w, /images/emberline-seasonal.jpg 1200w"
+                sizes="(max-width: 900px) 100vw, 44vw"
+                alt="A dark coffee with a warm crema on a wooden table"
+                width="1200"
+                height="1000"
+                loading="lazy"
+              />
+            </picture>
+          </div>
+          <div className="seasonal-feature__content" data-reveal>
+            <p className="section-kicker">A seasonal sample</p>
+            <h2 id="seasonal-title">The ember roast, while it lasts.</h2>
+            <p>Fictional demo feature: a medium roast with cocoa, dried cherry, and a clean finish.</p>
+            <dl className="seasonal-feature__details">
+              <div>
+                <dt>Brew it as</dt>
+                <dd>V60 or flat white</dd>
+              </div>
+              <div>
+                <dt>Pair it with</dt>
+                <dd>Butter croissant</dd>
+              </div>
+            </dl>
+            <a className="text-link" href="#menu">Explore the menu</a>
           </div>
         </section>
 
@@ -307,34 +374,37 @@ function App() {
               role="tabpanel"
               id="menu-panel"
               aria-labelledby={`tab-${selectedMenu.id}`}
+              aria-live="polite"
               tabIndex={0}
             >
-              <p className="menu-panel__note">{selectedMenu.note}</p>
-              <ul className="menu-list">
-                {selectedMenu.items.map((item) => (
-                  <li key={item.name}>
-                    <div>
-                      <h3>{item.name}</h3>
-                      <p>{item.description}</p>
-                    </div>
-                    <span>{item.price}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="menu-panel__content" key={selectedMenu.id}>
+                <p className="menu-panel__note">{selectedMenu.note}</p>
+                <ul className="menu-list">
+                  {selectedMenu.items.map((item) => (
+                    <li key={item.name}>
+                      <div>
+                        <h3>{item.name}</h3>
+                        <p>{item.description}</p>
+                      </div>
+                      <span>{item.price}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </section>
 
         <section className="pairing" aria-labelledby="pairing-title">
-          <picture>
+          <picture className="pairing__media" data-reveal>
             <source
               type="image/avif"
-              srcSet="/images/emberline-pairing-mobile.avif 768w, /images/emberline-pairing.avif 1536w"
+              srcSet="/images/emberline-pairing-mobile.avif 768w, /images/emberline-pairing-medium.avif 819w, /images/emberline-pairing.avif 1536w"
               sizes="(max-width: 900px) 100vw, 47.5vw"
             />
             <img
               src="/images/emberline-pairing.jpg"
-              srcSet="/images/emberline-pairing-mobile.jpg 768w, /images/emberline-pairing.jpg 1536w"
+              srcSet="/images/emberline-pairing-mobile.jpg 768w, /images/emberline-pairing-medium.jpg 819w, /images/emberline-pairing.jpg 1536w"
               sizes="(max-width: 900px) 100vw, 47.5vw"
               alt="Coffee cup and flaky croissants on a wooden table"
               width="1536"
@@ -358,8 +428,18 @@ function App() {
           </div>
 
           <div className="notes__stage" data-reveal>
+            <div
+              className="notes__progress"
+              role="progressbar"
+              aria-label={`Flavor profile ${selectedNote.number} of ${brewNotes.length}`}
+              aria-valuemin={1}
+              aria-valuemax={brewNotes.length}
+              aria-valuenow={activeNote + 1}
+            >
+              <span style={{ width: `${((activeNote + 1) / brewNotes.length) * 100}%` }} />
+            </div>
             <p className="notes__count" aria-hidden="true">{selectedNote.number} / 04</p>
-            <div className="notes__current" aria-live="polite" aria-atomic="true">
+            <div className={`notes__current notes__current--${noteDirection}`} key={selectedNote.number} aria-live="polite" aria-atomic="true">
               <h3>{selectedNote.name}</h3>
               <dl>
                 <div>
@@ -389,6 +469,7 @@ function App() {
         <nav aria-label="Footer navigation">
           <a href="#story">Our approach</a>
           <a href="#menu">Menu</a>
+          <a href="#seasonal">Seasonal</a>
           <a href="#notes">Find your cup</a>
         </nav>
         <p className="site-footer__credit">
@@ -396,6 +477,7 @@ function App() {
           {' '}<a href="https://unsplash.com/photos/a-cup-of-coffee-and-coffee-beans-on-a-table-rOscpQUx404" target="_blank" rel="noreferrer">hero</a>
           {' · '}<a href="https://unsplash.com/photos/a-man-pouring-a-cup-of-coffee-into-a-cup-I1VISukmlhE" target="_blank" rel="noreferrer">brew</a>
           {' · '}<a href="https://unsplash.com/photos/a-croissant-on-a-plate-next-to-a-cup-of-coffee-vUeOAtrxxsk" target="_blank" rel="noreferrer">pairing</a>
+          {' · '}<a href="https://unsplash.com/photos/a-cup-of-coffee-and-coffee-beans-on-a-table-rOscpQUx404" target="_blank" rel="noreferrer">seasonal crop</a>
           {' '}— Unsplash License.
         </p>
         <p className="site-footer__mark">Small cups, long conversations.</p>

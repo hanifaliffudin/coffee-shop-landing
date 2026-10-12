@@ -125,6 +125,32 @@ body {
   text-decoration: none;
 }
 
+.primary-nav a,
+.site-footer nav a {
+  position: relative;
+}
+
+.primary-nav a::after,
+.site-footer nav a::after {
+  background: currentColor;
+  bottom: 0.25rem;
+  content: '';
+  height: 1px;
+  left: 0.2rem;
+  position: absolute;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms ease;
+  width: calc(100% - 0.4rem);
+}
+
+.primary-nav a:hover::after,
+.primary-nav a:focus-visible::after,
+.site-footer nav a:hover::after,
+.site-footer nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+
 .primary-nav a:hover,
 .site-footer nav a:hover {
   color: var(--amber);
@@ -193,13 +219,15 @@ body {
   display: block;
 }
 
-.hero__media::before {
-  background-image: url('/images/emberline-hero.avif');
-  background-position: center;
-  background-size: cover;
-  content: '';
-  inset: 0;
-  position: absolute;
+.hero__media picture,
+.hero__media img {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.hero__media img {
+  object-fit: cover;
 }
 
 .hero__shade {
@@ -323,7 +351,33 @@ body {
 .story__image-wrap img {
   height: 100%;
   object-fit: cover;
+  transition: transform 900ms cubic-bezier(0.2, 0.75, 0.2, 1);
   width: 100%;
+}
+
+.story__image-wrap picture,
+.seasonal-feature__media picture,
+.pairing__media {
+  overflow: hidden;
+  transition: clip-path 720ms cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.story__image-wrap.reveal-ready picture,
+.seasonal-feature__media.reveal-ready picture,
+.pairing__media.reveal-ready {
+  clip-path: inset(0 100% 0 0);
+}
+
+.story__image-wrap.reveal-ready.is-visible picture,
+.seasonal-feature__media.reveal-ready.is-visible picture,
+.pairing__media.reveal-ready.is-visible {
+  clip-path: inset(0 0 0 0);
+}
+
+.story__image-wrap:hover img,
+.seasonal-feature__media:hover img,
+.pairing__media:hover img {
+  transform: scale(1.035);
 }
 
 .image-caption {
@@ -432,8 +486,22 @@ body {
   justify-content: flex-start;
   min-height: 4.5rem;
   padding: 0 1.75rem 0 0;
+  position: relative;
   text-align: left;
   transition: color 160ms ease, padding-left 160ms ease;
+}
+
+.menu-tabs button::after {
+  background: var(--amber);
+  bottom: 0.45rem;
+  content: '';
+  height: 2px;
+  left: 0;
+  position: absolute;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
+  width: 4rem;
 }
 
 .menu-tabs button span {
@@ -448,6 +516,10 @@ body {
   padding-left: 1rem;
 }
 
+.menu-tabs button.is-active::after {
+  transform: scaleX(1);
+}
+
 .menu-panel {
   min-height: 29rem;
   padding: 2.2rem 0 0 clamp(2rem, 6vw, 6rem);
@@ -458,6 +530,22 @@ body {
   line-height: 1.7;
   margin: 0 0 2rem;
   max-width: 36rem;
+}
+
+.menu-panel__content {
+  animation: menu-panel-in 340ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
+}
+
+@keyframes menu-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.65rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .menu-list {
@@ -514,7 +602,89 @@ body {
 .pairing > picture img {
   height: 100%;
   object-fit: cover;
+  transition: transform 900ms cubic-bezier(0.2, 0.75, 0.2, 1);
   width: 100%;
+}
+
+.seasonal-feature {
+  background: var(--roast);
+  color: var(--cream);
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(20rem, 0.95fr);
+  min-height: 34rem;
+  overflow: hidden;
+}
+
+.seasonal-feature__media {
+  min-height: 34rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.seasonal-feature__media picture {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.seasonal-feature__media img {
+  height: 100%;
+  object-fit: cover;
+  transition: transform 900ms cubic-bezier(0.2, 0.75, 0.2, 1);
+  width: 100%;
+}
+
+.seasonal-feature__content {
+  align-self: center;
+  max-width: 40rem;
+  padding: clamp(3.5rem, 7vw, 7rem);
+}
+
+.seasonal-feature .section-kicker {
+  color: var(--amber);
+}
+
+.seasonal-feature h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(3rem, 5.4vw, 5.5rem);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+  margin: 0;
+  max-width: 9ch;
+}
+
+.seasonal-feature__content > p:not(.section-kicker) {
+  color: rgba(244, 234, 219, 0.76);
+  line-height: 1.8;
+  margin: 1.8rem 0 2rem;
+  max-width: 30rem;
+}
+
+.seasonal-feature__details {
+  border-top: 1px solid rgba(244, 234, 219, 0.22);
+  margin: 0 0 2rem;
+  max-width: 31rem;
+}
+
+.seasonal-feature__details div {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 7rem 1fr;
+  padding: 1rem 0;
+}
+
+.seasonal-feature__details div + div {
+  border-top: 1px solid rgba(244, 234, 219, 0.16);
+}
+
+.seasonal-feature__details dt {
+  color: rgba(244, 234, 219, 0.58);
+  font-size: 0.8rem;
+}
+
+.seasonal-feature__details dd {
+  margin: 0;
 }
 
 .pairing__content {
@@ -575,6 +745,20 @@ body {
   margin: 0 0 clamp(3.5rem, 8vw, 7rem);
 }
 
+.notes__progress {
+  background: var(--line);
+  height: 2px;
+  margin: 0 0 1.2rem;
+  max-width: 17rem;
+}
+
+.notes__progress span {
+  background: var(--amber-ink);
+  display: block;
+  height: 100%;
+  transition: width 360ms cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
 .notes__current h3 {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(2.4rem, 5vw, 4.7rem);
@@ -583,6 +767,38 @@ body {
   line-height: 0.94;
   margin: 0 0 2.5rem;
   max-width: 11ch;
+}
+
+.notes__current--next {
+  animation: notes-next 360ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
+}
+
+.notes__current--previous {
+  animation: notes-previous 360ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
+}
+
+@keyframes notes-next {
+  from {
+    opacity: 0;
+    transform: translateX(1rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes notes-previous {
+  from {
+    opacity: 0;
+    transform: translateX(-1rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .notes__current dl {
@@ -738,6 +954,14 @@ button:focus-visible {
     max-height: 38rem;
   }
 
+  .seasonal-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .seasonal-feature__media {
+    min-height: 25rem;
+  }
+
   .notes__heading {
     margin-bottom: 4rem;
     max-width: 42rem;
@@ -766,21 +990,50 @@ button:focus-visible {
     display: flex;
   }
 
+  .site-header::after {
+    background: rgba(19, 10, 7, 0.58);
+    content: '';
+    inset: 4.5rem 0 0;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    transition: opacity 220ms ease;
+    z-index: 0;
+  }
+
+  .site-header:has(.primary-nav.is-open)::after {
+    opacity: 1;
+  }
+
+  .site-header__inner {
+    position: relative;
+    z-index: 2;
+  }
+
   .primary-nav {
     align-items: stretch;
     background: var(--espresso);
-    display: none;
+    display: flex;
     flex-direction: column;
     gap: 0;
     left: 0;
+    opacity: 0;
     padding: 0.6rem 1.25rem 1.2rem;
+    pointer-events: none;
     position: absolute;
     right: 0;
     top: 4.5rem;
+    transform: translateY(-0.75rem);
+    transition: opacity 220ms ease, transform 220ms ease, visibility 220ms ease;
+    visibility: hidden;
+    z-index: 1;
   }
 
   .primary-nav.is-open {
     display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
   }
 
   .primary-nav a {
@@ -793,9 +1046,8 @@ button:focus-visible {
     padding-top: 7rem;
   }
 
-  .hero__media::before {
-    background-image: url('/images/emberline-hero-mobile-small.avif');
-    background-position: 66% center;
+  .hero__media img {
+    object-position: 66% center;
   }
 
   .hero__shade {
@@ -863,6 +1115,12 @@ button:focus-visible {
     padding-right: 1.25rem;
   }
 
+  .seasonal-feature__content {
+    max-width: none;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
   .notes__current dl div {
     grid-template-columns: 6.2rem 1fr;
   }
@@ -913,6 +1171,28 @@ button:focus-visible {
 
   [data-reveal].reveal-ready {
     opacity: 1;
+    transform: none;
+  }
+
+  .story__image-wrap picture,
+  .seasonal-feature__media picture,
+  .pairing__media.reveal-ready {
+    clip-path: none;
+    transition: none;
+  }
+
+  .menu-panel__content,
+  .notes__current {
+    animation: none;
+  }
+
+  .notes__progress span {
+    transition: none;
+  }
+
+  .story__image-wrap:hover img,
+  .seasonal-feature__media:hover img,
+  .pairing__media:hover img {
     transform: none;
   }
 }
